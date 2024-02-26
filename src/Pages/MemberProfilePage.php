@@ -33,6 +33,7 @@ use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\ORM\HasManyList;
 use SilverStripe\ORM\UnsavedRelationList;
 use SilverStripe\ORM\ValidationResult;
+use SilverStripe\Security\Security;
 
 /**
  * A MemberProfilePage allows the administratior to set up a page with a subset of the
@@ -180,7 +181,7 @@ class MemberProfilePage extends Page
     public function Link($action = null)
     {
         if (!$action
-            && Member::currentUserID()
+            && Security::getCurrentUser()
             && !$this->AllowProfileEditing
             && $this->CanAddMembers()
         ) {
@@ -268,7 +269,7 @@ class MemberProfilePage extends Page
                         'in the "Settings" tab.'
                     )
                 ));
-                $fields->insertBefore($disabledNote, 'Sections');
+                $fields->insertBefore('Sections', $disabledNote);
             }
 
             $groups->setDescription(_t(
