@@ -1,13 +1,19 @@
-/* extracted from silverstripe/framework */
+const confirmedPasswordShowOnClick = document.querySelector('.confirmedpassword .showOnClick a');
 
-(function ($) {
-  $(document).on('click', '.confirmedpassword .showOnClick a', function () {
-    var $container = $('.showOnClickContainer', $(this).parent());
+if (confirmedPasswordShowOnClick) {
+  const showOnClickContainer = confirmedPasswordShowOnClick.parentNode.querySelector('.showOnClickContainer');
 
-    $container.toggle('fast', function() {
-      $container.toggleClass("d-none").find('input[type="hidden"]').val($container.hasClass("d-none")?0:1);
-    });
+  showOnClickContainer.style.display = 'none';
+
+  confirmedPasswordShowOnClick.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    if (showOnClickContainer.style.display === 'none') {
+      showOnClickContainer.style.display = 'block';
+    } else {
+      showOnClickContainer.style.display = 'none';
+    }
 
     return false;
   });
-})(jQuery);
+}
